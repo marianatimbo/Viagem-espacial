@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
+#include "astronauta.h"
+#include "voo.h"
+#include <list>
+
 using namespace std;
-/**/using std::string;
+using std::string;
 
 void imprimeMenu(){
     cout << "\n --------MENU----------\n";
