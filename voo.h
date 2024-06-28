@@ -22,13 +22,7 @@ class voo {
         StatusVoo status;
 
     public:
-        void cadastrarVoo();
-        void adicionarAstro();
-        void removerAstro();
-        void lancarVoo();
-        void explodirVoo();
-        void finalizarVoo();
-        void listarVoos();
+    
 };
 
 #endif

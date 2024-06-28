@@ -3,7 +3,6 @@
 
 #include <string>
 #include <list>
-#include "administracao.h"
 
 using namespace std;
 using std::string;
@@ -17,13 +16,11 @@ class astronauta {
 
         bool disponibilidade;
         bool vida; 
-        
-        adm voosParticipados;
 
+        list<int> voosParticipados; /*receber codigo*/
 
     public:
-        void cadastrarAstronauta();
-        void listarAstronautasMortos();
+       
 };
 
 #endif

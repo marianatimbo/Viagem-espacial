@@ -29,7 +29,7 @@ int main(){
     do{
         imprimeMenu();
         cin >> opcao;
-
+        
         switch(opcao){
             case 1: /*Cadastrar astronauta*/ break;
             case 2: /*Cadastrar voo*/ break;
