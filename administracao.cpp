@@ -26,7 +26,14 @@ void adm::cadastrarAstronauta(){
 }
 
 
-void cadastrarVoo(){
+void adm::cadastrarVoo(){
+    int cod;
+
+    cout << "Digite o codigo do voo que deseja criar:" << endl << ">> ";
+    cin >> cod;
+
+    voo novoVoo(cod, PLANEJAMENTO);
+    todosVoos.push_back(novoVoo);
     /*
     Pedir codigo;
     voo ja existe;

@@ -22,7 +22,11 @@ class voo {
         StatusVoo status;
 
     public:
-    
+        voo(int codigo_, StatusVoo status_);
+
+        int getCodigo();
+        StatusVoo getStatus();
+        list<astronauta> getPassageiros();
 };
 
 #endif
