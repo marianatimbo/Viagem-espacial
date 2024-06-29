@@ -20,7 +20,14 @@ class astronauta {
         list<int> voosParticipados; /*receber codigo*/
 
     public:
-       
+        astronauta(string nome_, string cpf_, int idade_, bool dispo, bool vida);
+
+        string getNome();
+        string getCpf();
+        int getIdade();
+        bool getDisponibilidade();
+        bool getVida();
+
 };
 
 #endif

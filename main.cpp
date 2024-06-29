@@ -2,6 +2,7 @@
 #include <string>
 #include "astronauta.h"
 #include "voo.h"
+#include "administracao.h"
 #include <list>
 
 using namespace std;
@@ -25,13 +26,14 @@ void imprimeMenu(){
 
 int main(){
     int opcao;
+    adm admin;
 
     do{
         imprimeMenu();
         cin >> opcao;
         
         switch(opcao){
-            case 1: /*Cadastrar astronauta*/ break;
+            case 1: /*Cadastrar astronauta*/ admin.cadastrarAstronauta(); break;
             case 2: /*Cadastrar voo*/ break;
             case 3: /*Adicionar astronauta em voo*/ break;
             case 4: /*Remover Astronauta de um voo*/ break;
@@ -39,7 +41,7 @@ int main(){
             case 6: /*Explodir voo*/ break;
             case 7: /*Finalizar voo*/ break;
             case 8: /*Listar todos os voos*/ break;
-            case 9: /*Listar todos os astronautas mortos*/ break;
+            case 9: admin.listarAstronautasMortos(); /*Listar todos os astronautas mortos*/ break;
             case 10: /*Finalizar operação*/ break;
 
             default: cout <<"\nOpção inválida, tente novamente.\n";

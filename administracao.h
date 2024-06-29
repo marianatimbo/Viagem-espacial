@@ -10,25 +10,21 @@ using namespace std;
 
 class adm {
     private:
-    list<astronauta> todosAstronautas;
-    list<voo> todosVoos;
+        list<astronauta> todosAstronautas;
+        list<voo> todosVoos;
 
     public:
+        void cadastrarAstronauta();
+        void cadastrarVoo();
 
-    // metodos  que manipulam as listas, como cadastrar novo astronauta, matar astronauta, cadastrar astronauta em um voo, etc.
-    void cadastrarAstronauta();
-    void cadastrarVoo();
+        void adicionarAstro();
+        void removerAstro();
+        void lancarVoo();
 
-    void listarAstronautasMortos();
-
-    void lancarVoo();
-
-    void adicionarAstro();
-    void removerAstro();
-    void explodirVoo();
-    void finalizarVoo();
-    void listarVoos();
-
+        void explodirVoo();
+        void finalizarVoo();
+        void listarVoos();
+        void listarAstronautasMortos();
 };
 
 #endif

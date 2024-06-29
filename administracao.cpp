@@ -1,27 +1,45 @@
+#include <iostream>
+#include <string>
 #include "administracao.h"
+#include <list>
+using namespace std;
 
 void adm::cadastrarAstronauta(){
-    /*
-    Nome;
-    Cpf;
-    idade;
-    id automatico; pré estabelecido pelo sitema;
+    string name, cpf;
+    int age;
 
-    ja cadastrado;
+    cout << "Digite o nome do novo astronauta:" << endl << ">> ";
+    cin >> name;
+
+    cout << "Digite o CPF:" << endl << ">> ";
+    cin >> cpf;
+
+    cout  << "Digite a idade:" << endl << ">> ";
+    cin >> age;
+
+    astronauta novoAstronauta(name, cpf, age, true, true);
+    todosAstronautas.push_back(novoAstronauta);
     
-    */
-}
-
-
-void listarAstronautasMortos(){
     /*
-    cpf, nome, voos que participou;
+    ja cadastrado; 
     */
 }
+
+
 void cadastrarVoo(){
     /*
     Pedir codigo;
     voo ja existe;
+    */
+}
+
+void adm::listarAstronautasMortos(){
+    for (auto& astro : todosAstronautas) {
+        cout << "Nome: " << astro.getNome() << ", Idade: " << astro.getIdade() << ", cpf: " << astro.getCpf() << endl;
+    }
+    
+    /*
+    cpf, nome, voos que participou;
     */
 }
 
