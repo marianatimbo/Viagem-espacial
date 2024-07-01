@@ -11,33 +11,67 @@ void adm::cadastrarAstronauta(){
     cout << "Digite o nome do novo astronauta:" << endl << ">> ";
     cin >> name;
 
-    cout << "Digite o CPF:" << endl << ">> ";
-    cin >> cpf;
+    bool cpfValido = false;
+    while(!cpfValido){
+        cout << "Digite o CPF:" << endl << ">> ";
+        cin >> cpf;
+
+        if(cpf.length() != 11){
+            cout << "O CPF deve ter 11 dígitos. Tente novamente."<< endl;
+            continue;
+        }
+
+        bool cpfExistente = false;
+        for( auto& astro : todosAstronautas){
+            if(astro.getCpf() == cpf){
+                cout << "Esse CPF já está cadastrado. Tente novamente." << endl;
+                cpfExistente = true;
+                break;
+            }
+        }
+
+        if(!cpfExistente){
+            cpfValido = true;
+        }
+    }
 
     cout  << "Digite a idade:" << endl << ">> ";
     cin >> age;
 
     astronauta novoAstronauta(name, cpf, age, true, true);
     todosAstronautas.push_back(novoAstronauta);
-    
-    /*
-    ja cadastrado; 
-    */
+    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+    cout << "Astronauta cadastrado com sucesso!" << endl;
+    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+
 }
 
 
 void adm::cadastrarVoo(){
     int cod;
 
-    cout << "Digite o codigo do voo que deseja criar:" << endl << ">> ";
-    cin >> cod;
+    bool codValido = false;
+    while(!codValido){
+        cout << "Digite o código do voo que deseja criar:" << endl << ">> ";
+        cin >> cod;
+
+        codValido = true;
+        for(auto& voo : todosVoos){
+            if(voo.getCodigo() == cod){
+                cout << "Esse código já existe. Tente novamente." << endl;
+                codValido = false;
+                break;
+            }
+        }
+    }   
+    
 
     voo novoVoo(cod, PLANEJAMENTO);
     todosVoos.push_back(novoVoo);
-    /*
-    Pedir codigo;
-    voo ja existe;
-    */
+    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+    cout << "Voo cadastrado com sucesso!" << endl;
+    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+    
 }
 
 void adm::listarAstronautasMortos(){
