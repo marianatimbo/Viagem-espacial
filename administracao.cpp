@@ -11,7 +11,30 @@ void adm::cadastrarAstronauta(){
     cout << "Digite o nome do novo astronauta:" << endl << ">>";
     cin >> name;
     /*sem ponto, revisar erro de espaço*/
-    cpf = validarCpf();
+    bool cpfValido = false;
+    while(!cpfValido){
+        cout << "Digite o CPF:" << endl << ">>";
+        cin >> cpf;
+
+        if(cpf.length() != 11){
+            cout << "O CPF deve ter 11 dígitos. Tente novamente."<< endl;
+            cout << cpf << endl;
+            continue;
+        }
+
+        bool cpfExistente = false;
+        for( auto& astro : todosAstronautas){
+            if(astro.getCpf() == cpf){
+                cout << "Esse CPF já está cadastrado. Tente novamente." << endl;
+                cpfExistente = true;
+                break;
+            }
+        }
+
+        if(!cpfExistente){
+            cpfValido = true;
+        }
+    }
 
     cout  << "Digite a idade:" << endl << ">>";
     cin >> age;
@@ -53,26 +76,114 @@ void adm::cadastrarVoo(){
 }
 
 void adm::adicionarAstro(){
-    string nome, cpf;
+    string nome;
+    if(todosAstronautas.empty()){
+        cout << "Nenhum astronauta foi cadastrado até o momento."<< endl;
+        cout << "Deseja cadastrar um astronauta?" << endl;
+        cout << "sim(1) ou não(2)" << endl;
+        int escolha;
+        cin >> escolha;
 
-    cout << "Digite o nome do astronauta que deseja adicionar:" << endl << ">>";
-    cin >> nome;
-    
-    cpf = validarCpf();
-    
-    /*
-    1) if nenhum astronauta cadastrado; deseja cadastrar?
-    2) pedir nome e cpf para adicionar;
-    3) astronauta nao cadastrado, cadastrar? ;
-    3:) observar se esta disponivel, caso exista o astronauta;
-    3::) observar se ele esta vivo;
-    4) pedir codigo do voo;
-    5) Verificar se existe o voo e esta em planejamento;
-    6) se existe voo, deseja criar? ;
+        if(escolha == 1){
+            cadastrarAstronauta();
+        }
+        else{
+            return;
+        }
 
-    */
+    }
+
+    bool astroValido = false;
+    while(!astroValido){
+        cout << "Digite o CPF do astronauta que deseja adicionar:" << endl << ">>";
+        string cpf;
+        cin >> cpf;
+
+        if(cpf.length() != 11){
+            cout << "O CPF deve ter 11 dígitos. Tente novamente."<< endl;
+            cout << cpf << endl;
+            continue;
+        }
+
+
+        bool cpfExistente = false;
+        for(auto& astro : todosAstronautas){
+            if(astro.getCpf() == cpf){
+                cpfExistente = true;
+                cout << "Astronauta encontrado!" << endl;
+                cout << "Nome:" << astro.getNome() << ", CPF: " << astro.getCpf() << ", Idade: " << astro.getIdade() << endl;
+                
+                /*se ele ta morto, fecha*/
+                if(astro.getVida() == false){
+                    cout << "Infelizmente este astronauta faleceu." << endl;
+                    /*add algo a mais para saida*/
+                    break;
+                } /*se não: continua*/
+                else{
+                    if(astro.getDisponibilidade() == false){ /*verifica se ele tem disponibilidade*/
+                        cout << "Esse astronauta está indisponível." << endl;
+                        /*deseja fazer algo?*/
+                        break;
+                    }
+                    else{
+                        if(todosVoos.empty()){/*confere se tem voo disponivel para adiciona-lo*/
+                            cout << "Nenhum voo foi criado até o momento. Deseja criar?" << endl;
+                            cout << "Sim(1) ou não(2) " << endl << ">>";
+                            int op;
+                            
+                            cin >> op;
+                            if(op == 1){
+                                cadastrarVoo();
+                            }
+                            else{  
+                                return;
+                            }
+                        }
+
+                        bool vooValido = false;
+                        while(!vooValido){
+                            cout << "Digite o código do voo que deseja adicioná-lo:" << endl << ">>";
+                            int cod;
+                            cin >> cod;
+
+                            for(auto& voos : todosVoos){
+                                if(voos.getCodigo() == cod){
+                                    vooValido = true;
+                                    if(voos.getStatus() != PLANEJAMENTO){
+                                        cout << "Esse voo não está em planejamento." << endl;
+                                        break;
+                                                                              
+                                    }
+                                    else{
+                                        voos.getPassageiros().push_back(astro);
+                                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                                        cout << "Astronauta adicionado com sucesso!" << endl;
+                                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+
+                                        astro.setDisponibilidade(false);
+                                        astroValido = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(vooValido == false){
+                                cout << "Voo não encontrado. Tente novamente." << endl;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (!cpfExistente) {
+            cout << "CPF não encontrado. Tente novamente." << endl;
+        }
+        else {
+            astroValido = true;
+        }
+    }
 }
-
 
 void removerAstro(){
     /*

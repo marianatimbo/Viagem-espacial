@@ -35,7 +35,7 @@ int main(){
         switch(opcao){
             case 1: admin.cadastrarAstronauta();/*Cadastrar astronauta*/ break;
             case 2: admin.cadastrarVoo() ;/*Cadastrar voo*/ break;
-            case 3: /*Adicionar astronauta em voo*/ break;
+            case 3: admin.adicionarAstro(); /*Adicionar astronauta em voo*/ break;
             case 4: /*Remover Astronauta de um voo*/ break;
             case 5: /*Lançar voo*/ break;
             case 6: /*Explodir voo*/ break;

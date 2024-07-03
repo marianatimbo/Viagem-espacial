@@ -28,6 +28,7 @@ class astronauta {
         bool getDisponibilidade();
         bool getVida();
 
+        void setDisponibilidade(bool dispo);
 };
 
 #endif

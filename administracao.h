@@ -26,35 +26,6 @@ class adm {
         void listarVoos();
         void listarAstronautasMortos();   
         
-        string validarCpf(){
-            string cpf;
-            bool cpfValido = false;
-            while(!cpfValido){
-                cout << "Digite o CPF:" << endl << ">>";
-                cin >> cpf;
-
-                if(cpf.length() != 11){
-                    cout << "O CPF deve ter 11 dígitos. Tente novamente."<< endl;
-                    cout << cpf << endl;
-                    continue;
-                }
-
-                bool cpfExistente = false;
-                for( auto& astro : todosAstronautas){
-                    if(astro.getCpf() == cpf){
-                        cout << "Esse CPF já está cadastrado. Tente novamente." << endl;
-                        cpfExistente = true;
-                        break;
-                    }
-                }
-
-                if(!cpfExistente){
-                    cpfValido = true;
-                }
-            }
-
-            return cpf;
-        }  
 };
 
 #endif

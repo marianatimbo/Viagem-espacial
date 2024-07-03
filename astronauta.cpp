@@ -28,3 +28,7 @@ bool astronauta::getDisponibilidade(){
 bool astronauta::getVida(){
     return this->vida;
 }
+
+void astronauta::setDisponibilidade(bool dispo){
+    this->disponibilidade = dispo;
+}
