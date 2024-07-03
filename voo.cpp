@@ -16,3 +16,20 @@ voo::voo(int codigo_, StatusVoo status_){
     this->codigo = codigo_;
     this->status = status_;
 }
+
+bool voo::astroEncontrado(const string& cpf){
+    for(auto& astro : passageiros){
+        if(astro.getCpf() == cpf){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void voo::removerTripulante(string cpf) {
+    passageiros.remove_if([&cpf](astronauta& astro) {
+        return astro.getCpf() == cpf;
+    });
+}
+

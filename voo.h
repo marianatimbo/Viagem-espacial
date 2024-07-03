@@ -27,6 +27,19 @@ class voo {
         int getCodigo();
         StatusVoo getStatus();
         list<astronauta> getPassageiros();
+
+        bool astroEncontrado(const string& cpf);
+        void removerTripulante(string cpf);
+
+        list<astronauta> listarPassageiros(){
+            return passageiros;
+        };
+
+        void botarAstro(astronauta astro){
+            passageiros.push_back(astro);
+        }
+
+
 };
 
 #endif

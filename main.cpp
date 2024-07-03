@@ -36,11 +36,11 @@ int main(){
             case 1: admin.cadastrarAstronauta();/*Cadastrar astronauta*/ break;
             case 2: admin.cadastrarVoo() ;/*Cadastrar voo*/ break;
             case 3: admin.adicionarAstro(); /*Adicionar astronauta em voo*/ break;
-            case 4: /*Remover Astronauta de um voo*/ break;
+            case 4: admin.removerAstro();/*Remover Astronauta de um voo*/ break;
             case 5: /*Lançar voo*/ break;
             case 6: /*Explodir voo*/ break;
             case 7: /*Finalizar voo*/ break;
-            case 8: /*Listar todos os voos*/ break;
+            case 8: admin.listarVoos();/*Listar todos os voos*/ break;
             case 9: admin.listarAstronautasMortos(); /*Listar todos os astronautas mortos*/ break;
             case 10: /*Finalizar operação*/ break;
 

@@ -29,6 +29,8 @@ class astronauta {
         bool getVida();
 
         void setDisponibilidade(bool dispo);
+        void adicionarVoo(int codigoVoo);
+        void removerVoo(int codigoVoo);
 };
 
 #endif
