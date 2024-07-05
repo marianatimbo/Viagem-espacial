@@ -224,7 +224,6 @@ void adm::removerAstro(){
                 //if(list de codigo vazia, astronauta nao tem nenhum voo)
                 bool vooValido = false;
                 while(!vooValido){
-                    cout << endl;
                     cout << "Digite o código do voo que deseja removê-lo:" << endl;
                     int cod;
                     cin >> cod;
@@ -275,36 +274,52 @@ void adm::removerAstro(){
 
     }
 
-    /*
-    0) if nenhuma voo cadastrado; deseja criar?; acho que nao tem pra que criar; sem logica;
-    1) pedir codigo do voo;
-    1:) verificar se esse voo existe;
-    1::) verificar se o voo esta em planejameto;
-    2) pedir dados do astronauta;
-    2:) verificar se ele existe, se  esta vivo e se faz parte do voo;
-    3) mudar status de disponibilidade do astronuta e tira-lo do voo;
-    */
 }
 
-void adm::listarAstronautasMortos(){
-    for (auto& astro : todosAstronautas) {
-        cout << "Nome: " << astro.getNome() << ", Idade: " << astro.getIdade() << ", cpf: " << astro.getCpf() << endl;
+void adm::lancarVoo(){
+    cout << "=-=-=-= OPERAÇÃO LANÇAR VOO =-=--=-=\n";
+    if(todosVoos.empty()){
+        cout << "Nenhum voo foi cadastrado até o momento.\n";
+        return;
+    } 
+
+    
+    bool vooValido = false;
+    while(!vooValido){
+        cout << "Digite o código do voo:\n" << ">>";
+        int cod;
+        cin >> cod;
+
+        for(auto& voo : todosVoos){
+            if(voo.getCodigo() == cod){
+                vooValido = true;
+                
+                if(voo.getStatus() == PLANEJAMENTO){
+                    if(voo.getPassageiros().empty()){
+                        cout << "Nenhum astronauta foi cadastrado nesse voo\n";
+                        break;
+
+                    }
+                    else{
+                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                        cout << "Voo lançado com sucesso!\n";
+                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+
+                        voo.mudarStatus(EM_CURSO);
+                        break;
+                    }
+                }
+                else{
+                    cout << "Este voo já foi lançado.\n";
+                    break;
+                }
+            }
+        }
+
+        if(vooValido == false){
+            cout << "Código inválido, tente novamente.\n";
+        }
     }
-    
-    /*
-    cpf, nome, voos que participou;
-    */
-}
-
-void lancarVoo(){
-    /*
-    
-    verificar se ha astronautas no voo (pelo menos 1) e 
-    verificar esta todos disponiveis;
-
-    mudar status de disponibilidade; 
-    
-    */
 }
 
 void explodirVoo(){
@@ -328,19 +343,32 @@ void finalizarVoo(){
 }
 
 void adm::listarVoos(){
-    /*
+    cout << "=-=-=-=- OPERAÇÃO LISTAR VOOS =-=-=-=-=" << endl;
     for(auto& voo : todosVoos){
-        cout << "Codigo:" << voo.getCodigo() ;
+        cout << "Codigo: " << voo.getCodigo() ;
+        cout << "\n";
         for(auto& astro : voo.listarPassageiros()){
-            cout << "entrou aqui";
-            cout << "cpf::" << astro.getCpf();
+            cout << "-> Nome: " << astro.getNome() << endl;
+            cout << "-> CPF: " << astro.getCpf() << endl;
+            cout << "-> Idade: " << astro.getIdade() << endl;
+            cout << "\n";
         }
     }
-
+    /*
     em planejamento e seus astronautas;
     em curso ||;
     finalizados || com sucesso ou nao;
     
     */   
+}
+
+void adm::listarAstronautasMortos(){
+    for (auto& astro : todosAstronautas) {
+        cout << "Nome: " << astro.getNome() << ", Idade: " << astro.getIdade() << ", cpf: " << astro.getCpf() << endl;
+    }
+    
+    /*
+    cpf, nome, voos que participou;
+    */
 }
 

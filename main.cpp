@@ -9,7 +9,7 @@ using namespace std;
 using std::string;
 
 void imprimeMenu(){
-    cout << "\n --------MENU----------\n";
+    cout << "\n =-=-=-=-=-=-=-=MENU=-=-=-=-=-=-=-=-=\n";
     cout << "Selecione uma das opções abaixo:\n";
     cout << "(1) Cadastrar astronauta\n";
     cout << "(2) Cadastrar voo\n";
@@ -37,7 +37,7 @@ int main(){
             case 2: admin.cadastrarVoo() ;/*Cadastrar voo*/ break;
             case 3: admin.adicionarAstro(); /*Adicionar astronauta em voo*/ break;
             case 4: admin.removerAstro();/*Remover Astronauta de um voo*/ break;
-            case 5: /*Lançar voo*/ break;
+            case 5: admin.lancarVoo();/*Lançar voo*/ break;
             case 6: /*Explodir voo*/ break;
             case 7: /*Finalizar voo*/ break;
             case 8: admin.listarVoos();/*Listar todos os voos*/ break;

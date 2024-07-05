@@ -28,6 +28,8 @@ class voo {
         StatusVoo getStatus();
         list<astronauta> getPassageiros();
 
+        void mudarStatus(StatusVoo status_);
+
         bool astroEncontrado(const string& cpf);
         void removerTripulante(string cpf);
 
