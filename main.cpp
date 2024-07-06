@@ -38,8 +38,8 @@ int main(){
             case 3: admin.adicionarAstro(); /*Adicionar astronauta em voo*/ break;
             case 4: admin.removerAstro();/*Remover Astronauta de um voo*/ break;
             case 5: admin.lancarVoo();/*Lançar voo*/ break;
-            case 6: /*Explodir voo*/ break;
-            case 7: /*Finalizar voo*/ break;
+            case 6: admin.explodirVoo();/*Explodir voo*/ break;
+            case 7: admin.finalizarVoo();/*Finalizar voo*/ break;
             case 8: admin.listarVoos();/*Listar todos os voos*/ break;
             case 9: admin.listarAstronautasMortos(); /*Listar todos os astronautas mortos*/ break;
             case 10: /*Finalizar operação*/ break;

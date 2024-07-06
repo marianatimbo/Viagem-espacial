@@ -322,24 +322,91 @@ void adm::lancarVoo(){
     }
 }
 
-void explodirVoo(){
-    /*
-    mudar estado de vida de todos os astronautas;
+void adm::explodirVoo(){
+    cout << "=-=-=-= OPERAÇÃO EXPLODIR VOO =-=-=-=\n";
+    if(todosVoos.empty()){
+        cout<< "Nenhum voo foi criado.\n";
+        return;
+    }
+    bool vooValido = false;
+    while(!vooValido){
+        cout << "Digite o código do voo que deseja explodir:\n" << ">>";
+        int cod;
+        cin >> cod;
 
-    adicionar na lista de mortos e de voos;
-    mudar status do voo;
+        for(auto& voo : todosVoos){
+            if(voo.getCodigo() == cod){
+                vooValido = true;
 
-    
-    */
+                if(voo.getStatus() != EM_CURSO){
+                    cout << "Voo não está em curso para ser detonado.\n";
+                    break;
+                }
+                else{
+                    voo.mudarStatus(EXPLODIDO);
+                    for(auto& astroGlobal : todosAstronautas){
+                        for(auto& astroPassa : voo.getPassageiros()){
+                            if(astroGlobal.getCpf() == astroPassa.getCpf()){
+                                astroGlobal.setVida(false);
+                            }
+                        }
+                    }
+                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                    cout << "Voo explodidio com sucesso!\n";
+                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                    break;
+                }
+            }
+        }
+        if(vooValido == false){
+            cout << "Código inválido, tente novamente.\n";
+        }
+    }
 }
 
-void finalizarVoo(){
-    /*
-    mudar disponibilidade;
-    mudar status;
-    adicionar a lista de voos;    
-    
-    */
+void adm::finalizarVoo(){
+    cout << "=-=-=-=-= OPERAÇÃO FINALIZAR VOO =-=-=-=-=\n";
+    if(todosVoos.empty()){
+        cout << "Nenhum voo foi criado até o momento.\n";
+        return;
+    }
+
+    bool vooValido = false;
+    while(!vooValido){
+        cout << "Digite o código do voo que deseja lançar:\n" << ">>";
+        int cod;
+        cin >> cod;
+
+        for(auto& voo : todosVoos){
+            if(voo.getCodigo() == cod){
+                vooValido = true;
+
+                if(voo.getStatus() != EM_CURSO){
+                    cout << "Esse voo não está em curso para ser finalizado.\n";
+                    break;
+                }
+                else{
+                    voo.mudarStatus(FINALIZADO);
+                    for(auto& astroGlobal : todosAstronautas){
+                        for(auto& astroPassa : voo.getPassageiros()){
+                            if(astroGlobal.getCpf() == astroPassa.getCpf()){
+                                astroGlobal.setDisponibilidade(true);
+                            }
+                        }
+                    }
+
+                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                    cout << "Voo finalizado com sucesso.\n";
+                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                    break;
+                }
+            }
+        }
+        if(vooValido == false){
+            cout << "Código inválido, tente novamente.\n";
+        }
+
+    }
 }
 
 void adm::listarVoos(){
@@ -365,6 +432,8 @@ void adm::listarVoos(){
 void adm::listarAstronautasMortos(){
     for (auto& astro : todosAstronautas) {
         cout << "Nome: " << astro.getNome() << ", Idade: " << astro.getIdade() << ", cpf: " << astro.getCpf() << endl;
+        cout << "Vida: " << astro.getVida() << endl;
+        cout << "Dispo: " << astro.getDisponibilidade();
     }
     
     /*

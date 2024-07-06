@@ -12,15 +12,14 @@ class adm {
     private:
         list<astronauta> todosAstronautas;
         list<voo> todosVoos;
+        list<astronauta> astrosMortos;
 
     public:
         void cadastrarAstronauta();
         void cadastrarVoo();
-
         void adicionarAstro();
         void removerAstro();
         void lancarVoo();
-
         void explodirVoo();
         void finalizarVoo();
         void listarVoos();

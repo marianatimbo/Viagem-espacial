@@ -33,6 +33,10 @@ void astronauta::setDisponibilidade(bool dispo){
     this->disponibilidade = dispo;
 }
 
+void astronauta::setVida(bool vida_){
+    this->vida = vida_;
+}
+
 void astronauta::adicionarVoo(int codigoVoo){
     voosParticipados.push_back(codigoVoo);
 }
