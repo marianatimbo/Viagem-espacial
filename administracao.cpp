@@ -411,22 +411,52 @@ void adm::finalizarVoo(){
 
 void adm::listarVoos(){
     cout << "=-=-=-=- OPERAÇÃO LISTAR VOOS =-=-=-=-=" << endl;
+    if(todosVoos.empty()){
+        cout << "Nenhum voo foi criado até o momento\n";
+        return;
+    }
+
     for(auto& voo : todosVoos){
-        cout << "Codigo: " << voo.getCodigo() ;
-        cout << "\n";
-        for(auto& astro : voo.listarPassageiros()){
-            cout << "-> Nome: " << astro.getNome() << endl;
-            cout << "-> CPF: " << astro.getCpf() << endl;
-            cout << "-> Idade: " << astro.getIdade() << endl;
-            cout << "\n";
+        if(voo.getStatus() == PLANEJAMENTO){
+            cout << "-> Código: " << voo.getCodigo() << endl;
+            cout << "-> EM PLANEJAMENTO <-\n"; 
+            for(auto& astro : voo.getPassageiros()){
+                cout << "-> Nome: " << astro.getNome() << endl;
+                cout << "-> CPF: " << astro.getCpf() << endl;
+                cout << "-> Idade: " << astro.getIdade() << endl;
+                cout << "\n";
+            }
         }
     }
-    /*
-    em planejamento e seus astronautas;
-    em curso ||;
-    finalizados || com sucesso ou nao;
-    
-    */   
+    for(auto& voo : todosVoos){
+        if(voo.getStatus() == EM_CURSO){
+            cout << "-> Código: " << voo.getCodigo() << endl;
+            cout << "-> EM CURSO <-\n"; 
+            for(auto& astro : voo.getPassageiros()){
+                cout << "-> Nome: " << astro.getNome() << endl;
+                cout << "-> CPF: " << astro.getCpf() << endl;
+                cout << "-> Idade: " << astro.getIdade() << endl;
+                cout << "\n";
+            }
+        }
+    }
+    for(auto& voo : todosVoos){
+        if(voo.getStatus() == FINALIZADO || voo.getStatus() == EXPLODIDO){
+            cout << "-> Código: " << voo.getCodigo() << endl;
+            if(voo.getStatus() == FINALIZADO){
+                cout << "-> FINALIZADO COM SUCESSO\n";
+            }
+            else{
+                cout << "-> FINALIZADO SEM SUCESSO\n";
+            }
+            for(auto& astro : voo.getPassageiros()){
+                cout << "-> Nome: " << astro.getNome() << endl;
+                cout << "-> CPF: " << astro.getCpf() << endl;
+                cout << "-> Idade: " << astro.getIdade() << endl;
+                cout << "\n";
+            }
+        }
+    }
 }
 
 void adm::listarAstronautasMortos(){
