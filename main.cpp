@@ -9,7 +9,7 @@ using namespace std;
 using std::string;
 
 void imprimeMenu(){
-    cout << "\n =-=-=-=-=-=-=-=MENU=-=-=-=-=-=-=-=-=\n";
+    cout << "\n=-=-=-=-=-=-=-=MENU=-=-=-=-=-=-=-=-=\n";
     cout << "Selecione uma das opções abaixo:\n";
     cout << "(1) Cadastrar astronauta\n";
     cout << "(2) Cadastrar voo\n";
@@ -33,22 +33,21 @@ int main(){
         cin >> opcao;
         
         switch(opcao){
-            case 1: admin.cadastrarAstronauta();/*Cadastrar astronauta*/ break;
-            case 2: admin.cadastrarVoo() ;/*Cadastrar voo*/ break;
-            case 3: admin.adicionarAstro(); /*Adicionar astronauta em voo*/ break;
-            case 4: admin.removerAstro();/*Remover Astronauta de um voo*/ break;
-            case 5: admin.lancarVoo();/*Lançar voo*/ break;
-            case 6: admin.explodirVoo();/*Explodir voo*/ break;
-            case 7: admin.finalizarVoo();/*Finalizar voo*/ break;
-            case 8: admin.listarVoos();/*Listar todos os voos*/ break;
-            case 9: admin.listarAstronautasMortos(); /*Listar todos os astronautas mortos*/ break;
-            case 10: /*Finalizar operação*/ break;
+            case 1: admin.cadastrarAstronauta(); break;
+            case 2: admin.cadastrarVoo() ; break;
+            case 3: admin.adicionarAstro(); break;
+            case 4: admin.removerAstro(); break;
+            case 5: admin.lancarVoo(); break;
+            case 6: admin.explodirVoo(); break;
+            case 7: admin.finalizarVoo(); break;
+            case 8: admin.listarVoos(); break;
+            case 9: admin.listarAstronautasMortos(); break;
+            case 10: cout << "Operação finalizada com sucesso!\n"; break;
 
             default: cout <<"\nOpção inválida, tente novamente.\n";
         }
 
     } while(opcao != 10);
     
-
     return 0;
 }

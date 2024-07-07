@@ -12,22 +12,23 @@ void adm::cadastrarAstronauta(){
     cout << "=-=-=-= OPERAÇÃO CADASTRAR ASTRONAUTA =-=-=-=-=" << endl;
     
     cout << "Digite o nome do novo astronauta:" << endl << ">>";
-    cin >> name;
-    /*sem ponto, revisar erro de espaço*/
+    cin.ignore();
+    getline(cin, name);
+    
     bool cpfValido = false;
     while(!cpfValido){
-        cout << "Digite o CPF:" << endl << ">>";
+        cout << "Digite o CPF com apenas números:" << endl << ">>";
         cin >> cpf;
 
         if(cpf.length() != 11){
-            cout << "**O CPF deve ter 11 dígitos. Tente novamente."<< endl;
+            cout << "O CPF deve ter 11 dígitos. Tente novamente."<< endl;
             continue;
         }
 
         bool cpfExistente = false;
         for( auto& astro : todosAstronautas){
             if(astro.getCpf() == cpf){
-                cout << "**Esse CPF já está cadastrado. Tente novamente." << endl;
+                cout << "Esse CPF já está cadastrado. Tente novamente." << endl;
                 cpfExistente = true;
                 break;
             }
@@ -38,8 +39,18 @@ void adm::cadastrarAstronauta(){
         }
     }
 
-    cout  << "Digite a idade:" << endl << ">>";
-    cin >> age;
+    
+    bool idadeValida = false;
+    while(!idadeValida){
+        cout  << "Digite a idade:" << endl << ">>";
+        cin >> age;
+        if(age < 18){
+            cout << "A idade mínima é 18. Tente novamente.\n";
+        }
+        else{
+            idadeValida = true;
+        }
+    }
 
     astronauta novoAstronauta(name, cpf, age, true, true);
     todosAstronautas.push_back(novoAstronauta);
@@ -55,13 +66,13 @@ void adm::cadastrarVoo(){
 
     bool codValido = false;
     while(!codValido){
-        cout << "Digite o código do voo que deseja criar:" << endl << ">> ";
+        cout << "Digite o código do voo que deseja criar:" << endl << ">>";
         cin >> cod;
 
         codValido = true;
         for(auto& voo : todosVoos){
             if(voo.getCodigo() == cod){
-                cout << "**Esse código já existe. Tente novamente." << endl;
+                cout << "Esse código já existe. Tente novamente." << endl;
                 codValido = false;
                 break;
             }
@@ -81,7 +92,7 @@ void adm::adicionarAstro(){
     string nome;
     cout << "=-= OPERAÇÃO ADICIONAR ASTRONAUTA EM VOO =-=" << endl;
     if(todosAstronautas.empty()){
-        cout << "** Nenhum astronauta foi cadastrado até o momento."<< endl;
+        cout << "Nenhum astronauta foi cadastrado até o momento."<< endl;
         cout << "Deseja cadastrar um astronauta?" << endl;
         cout << "sim(1) ou não(2)" << endl;
         int escolha;
@@ -98,12 +109,12 @@ void adm::adicionarAstro(){
 
     bool astroValido = false;
     while(!astroValido){
-        cout << "Digite o CPF do astronauta que deseja adicionar:" << endl << ">>";
+        cout << "Digite o CPF do astronauta que deseja adicionar com apenas números:" << endl << ">>";
         string cpf;
         cin >> cpf;
 
         if(cpf.length() != 11){
-            cout << "** O CPF deve ter 11 dígitos. Tente novamente."<< endl;
+            cout << "O CPF deve ter 11 dígitos. Tente novamente."<< endl;
             cout << cpf << endl;
             continue;
         }
@@ -114,21 +125,19 @@ void adm::adicionarAstro(){
             if(astro.getCpf() == cpf){
                 cpfExistente = true;
                 cout << "Astronauta encontrado!" << endl;
-                cout << "-> Nome:" << astro.getNome() << endl;
+                cout << "-> Nome: " << astro.getNome() << endl;
                 cout << "-> CPF: " << astro.getCpf() << endl;
                 cout << "-> Idade: " << astro.getIdade() << endl;
                 
-                /*se ele ta morto, fecha*/
                 if(astro.getVida() == false){
-                    cout << "** Infelizmente este astronauta faleceu." << endl;
-                    /*add algo a mais para saida*/
+                    cout << "Infelizmente este astronauta faleceu." << endl;
                     break;
-                } /*se não: continua*/
+                }
                 else{
                     
-                    if(todosVoos.empty()){/*confere se tem voo disponivel para adiciona-lo*/
+                    if(todosVoos.empty()){
                         cout << "Nenhum voo foi criado até o momento. Deseja criar?" << endl;
-                        cout << "Sim(1) ou não(2) " << endl << ">>";
+                        cout << "Sim(1) ou não(2)" << endl << ">>";
                         int op;
                             
                         cin >> op;
@@ -150,7 +159,7 @@ void adm::adicionarAstro(){
                             if(voos.getCodigo() == cod){
                                 vooValido = true;
                                 if(voos.astroEncontrado(astro.getCpf()) == true){
-                                    cout << "Esse astronauta já está no voo.\n";
+                                    cout << "Esse astronauta já está cadastrado no voo.\n";
                                     break;
                                 }
 
@@ -203,7 +212,7 @@ void adm::removerAstro(){
     bool astroValido = false;
     while(!astroValido){
         string cpf;
-        cout << "Digite o CPF do astronauta:" << endl << ">>";
+        cout << "Digite o CPF do astronauta com apenas números:" << endl << ">>";
         cin >> cpf;
 
         if(cpf.length() != 11){
@@ -217,11 +226,11 @@ void adm::removerAstro(){
             if(astro.getCpf() == cpf){
                 cpfExistente = true;
                 cout << "Astronauta encontrado!" << endl;
-                cout << "Nome:" << astro.getNome() << ", CPF: " << astro.getCpf() << ", Idade: " << astro.getIdade() << endl;
+                cout << "-> Nome:" << astro.getNome() << "\n-> CPF: " << astro.getCpf() << "\n-> Idade: " << astro.getIdade() << endl;
 
                 bool vooValido = false;
                 while(!vooValido){
-                    cout << "Digite o código do voo que deseja removê-lo:" << endl;
+                    cout << "Digite o código do voo que deseja removê-lo:\n" << ">>" << endl;
                     int cod;
                     cin >> cod;
 
@@ -352,7 +361,7 @@ void adm::explodirVoo(){
                 vooValido = true;
 
                 if(voo.getStatus() != EM_CURSO){
-                    cout << "Voo não está em curso para ser detonado.\n";
+                    cout << "Esse voo não está em curso para ser detonado.\n";
                     break;
                 }
                 else{
@@ -386,7 +395,7 @@ void adm::finalizarVoo(){
 
     bool vooValido = false;
     while(!vooValido){
-        cout << "Digite o código do voo que deseja lançar:\n" << ">>";
+        cout << "Digite o código do voo que deseja finalizar:\n" << ">>";
         int cod;
         cin >> cod;
 
@@ -431,21 +440,33 @@ void adm::listarVoos(){
 
     for(auto& voo : todosVoos){
         if(voo.getStatus() == PLANEJAMENTO){
-            cout << "-> Código: " << voo.getCodigo() << endl;
+            cout << "#### Código: " << voo.getCodigo() << " ####" << endl;
             cout << "-> EM PLANEJAMENTO <-\n"; 
-            for(auto& astro : voo.getPassageiros()){
-                cout << "-> Nome: " << astro.getNome() << endl;
-                cout << "-> CPF: " << astro.getCpf() << endl;
-                cout << "-> Idade: " << astro.getIdade() << endl;
-                cout << "\n";
+            if(voo.getPassageiros().empty()){
+                cout << "-> Nenhum astronauta cadastrado até o momento.\n\n";
             }
+            else{
+                int cont = 0;
+                for(auto& astro : voo.getPassageiros()){
+                    cont++;
+                    cout << "Astronauta " << cont << ":\n";
+                    cout << "-> Nome: " << astro.getNome() << endl;
+                    cout << "-> CPF: " << astro.getCpf() << endl;
+                    cout << "-> Idade: " << astro.getIdade() << endl;
+                    cout << "\n";
+                }
+            }
+
         }
     }
     for(auto& voo : todosVoos){
         if(voo.getStatus() == EM_CURSO){
-            cout << "-> Código: " << voo.getCodigo() << endl;
-            cout << "-> EM CURSO <-\n"; 
+            cout << "#### Código: " << voo.getCodigo() << " ####" << endl;
+            cout << "-> EM CURSO <-\n";
+            int cont = 0;
             for(auto& astro : voo.getPassageiros()){
+                cont++;
+                cout << "Astronauta " << cont << ":\n";
                 cout << "-> Nome: " << astro.getNome() << endl;
                 cout << "-> CPF: " << astro.getCpf() << endl;
                 cout << "-> Idade: " << astro.getIdade() << endl;
@@ -455,14 +476,17 @@ void adm::listarVoos(){
     }
     for(auto& voo : todosVoos){
         if(voo.getStatus() == FINALIZADO || voo.getStatus() == EXPLODIDO){
-            cout << "-> Código: " << voo.getCodigo() << endl;
+            cout << "#### Código: " << voo.getCodigo() << " ####" << endl;
             if(voo.getStatus() == FINALIZADO){
                 cout << "-> FINALIZADO COM SUCESSO\n";
             }
             else{
                 cout << "-> FINALIZADO SEM SUCESSO\n";
             }
+            int cont = 0;
             for(auto& astro : voo.getPassageiros()){
+                cont ++;
+                cout << "Astronauta " << cont << ":\n";
                 cout << "-> Nome: " << astro.getNome() << endl;
                 cout << "-> CPF: " << astro.getCpf() << endl;
                 cout << "-> Idade: " << astro.getIdade() << endl;
@@ -481,7 +505,7 @@ void adm::listarAstronautasMortos(){
     for (auto& astro : todosAstronautas) {
         if(astro.getVida() == false){
             cout << "-> Nome: " << astro.getNome() << "\n-> CPF: " << astro.getCpf() << "\n-> Idade: " << astro.getIdade() << endl;
-            cout << "Voos participados:" << endl;
+            cout << "-> Voos participados:" << endl;
             for(auto& voo : astro.listarVoos()){
                 cout << "-> Código:" << voo << endl;
             }
