@@ -2,6 +2,7 @@
 #include <string>
 #include "administracao.h"
 #include <list>
+
 using namespace std;
 
 void adm::cadastrarAstronauta(){
@@ -124,57 +125,54 @@ void adm::adicionarAstro(){
                     break;
                 } /*se não: continua*/
                 else{
-                    if(astro.getDisponibilidade() == false){ /*verifica se ele tem disponibilidade*/
-                        cout << "** Esse astronauta está indisponível." << endl;
-                        /*deseja fazer algo?*/
-                        break;
-                    }
-                    else{
-                        if(todosVoos.empty()){/*confere se tem voo disponivel para adiciona-lo*/
-                            cout << "Nenhum voo foi criado até o momento. Deseja criar?" << endl;
-                            cout << "Sim(1) ou não(2) " << endl << ">>";
-                            int op;
+                    
+                    if(todosVoos.empty()){/*confere se tem voo disponivel para adiciona-lo*/
+                        cout << "Nenhum voo foi criado até o momento. Deseja criar?" << endl;
+                        cout << "Sim(1) ou não(2) " << endl << ">>";
+                        int op;
                             
-                            cin >> op;
-                            if(op == 1){
-                                cadastrarVoo();
-                            }
-                            else{  
-                                return;
+                        cin >> op;
+                        if(op == 1){
+                            cadastrarVoo();
+                        }
+                        else{  
+                            return;
+                        }
+                    }
+
+                    bool vooValido = false;
+                    while(!vooValido){
+                        cout << "Digite o código do voo que deseja adicioná-lo:" << endl << ">>";
+                        int cod;
+                        cin >> cod;
+
+                        for(auto& voos : todosVoos){
+                            if(voos.getCodigo() == cod){
+                                vooValido = true;
+                                if(voos.astroEncontrado(astro.getCpf()) == true){
+                                    cout << "Esse astronauta já está no voo.\n";
+                                    break;
+                                }
+
+                                if(voos.getStatus() != PLANEJAMENTO){
+                                    cout << "Esse voo não está em planejamento." << endl;
+                                    break;
+                                                                          
+                                }
+                                else{
+                                    voos.botarAstro(astro);
+                                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                                    cout << "Astronauta adicionado com sucesso!" << endl;
+                                    cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+
+                                    astroValido = true;
+                                    break;
+                                }
                             }
                         }
 
-                        bool vooValido = false;
-                        while(!vooValido){
-                            cout << "Digite o código do voo que deseja adicioná-lo:" << endl << ">>";
-                            int cod;
-                            cin >> cod;
-
-                            for(auto& voos : todosVoos){
-                                if(voos.getCodigo() == cod){
-                                    vooValido = true;
-                                    if(voos.getStatus() != PLANEJAMENTO){
-                                        cout << "Esse voo não está em planejamento." << endl;
-                                        break;
-                                                                              
-                                    }
-                                    else{
-                                        voos.botarAstro(astro);
-                                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
-                                        cout << "Astronauta adicionado com sucesso!" << endl;
-                                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
-
-                                        astro.setDisponibilidade(false);
-                                        astro.adicionarVoo(cod);
-                                        astroValido = true;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if(vooValido == false){
-                                cout << "Voo não encontrado. Tente novamente." << endl;
-                            }
+                        if(vooValido == false){
+                            cout << "Voo não encontrado. Tente novamente." << endl;
                         }
                     }
                 }
@@ -221,7 +219,6 @@ void adm::removerAstro(){
                 cout << "Astronauta encontrado!" << endl;
                 cout << "Nome:" << astro.getNome() << ", CPF: " << astro.getCpf() << ", Idade: " << astro.getIdade() << endl;
 
-                //if(list de codigo vazia, astronauta nao tem nenhum voo)
                 bool vooValido = false;
                 while(!vooValido){
                     cout << "Digite o código do voo que deseja removê-lo:" << endl;
@@ -237,17 +234,11 @@ void adm::removerAstro(){
                                 break;
                             }
                             else{
-                                cout << "cpf:" << cpf << endl; 
-
                                 if(voo.astroEncontrado(cpf) == true){
                                     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
                                     cout << "Astronauta localizado e removido com sucesso!" << endl;
                                     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
-                                    astro.setDisponibilidade(true);
-                                    /*retirar codigo da lista*/
-                                    astro.removerVoo(cod);
-                                    /* retirar astronauta da lista de passageiros*/
                                     voo.removerTripulante(cpf);
                                     break;
                                 }
@@ -301,12 +292,34 @@ void adm::lancarVoo(){
 
                     }
                     else{
-                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
-                        cout << "Voo lançado com sucesso!\n";
-                        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                        bool astroValido = true;
+                        for(auto& astroGlobal : todosAstronautas){
+                            for(auto astroPassa : voo.getPassageiros()){
+                                if(astroGlobal.getCpf() == astroPassa.getCpf() && astroGlobal.getDisponibilidade() == false){
+                                    cout << "Astronauta de CPF " << astroGlobal.getCpf() << " indiponível para lançamento\n";
+                                    astroValido = false;
+                                }
+                            }
+                        }
+                        if(astroValido == false){
+                            break;
+                        }
+                        else{
+                            for(auto& astroGlobal : todosAstronautas){
+                                for(auto& astroPassa : voo.getPassageiros()){
+                                    if(astroGlobal.getCpf() == astroPassa.getCpf()){
+                                        astroGlobal.setDisponibilidade(false);
+                                        astroGlobal.adicionarVoo(cod);
+                                    }
+                                }
+                            }
 
-                        voo.mudarStatus(EM_CURSO);
-                        break;
+                            cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+                            cout << "Voo lançado com sucesso!\n";
+                            cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;     
+                            voo.mudarStatus(EM_CURSO);    
+                            break;                   
+                        }
                     }
                 }
                 else{
