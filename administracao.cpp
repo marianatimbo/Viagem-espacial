@@ -460,14 +460,22 @@ void adm::listarVoos(){
 }
 
 void adm::listarAstronautasMortos(){
-    for (auto& astro : todosAstronautas) {
-        cout << "Nome: " << astro.getNome() << ", Idade: " << astro.getIdade() << ", cpf: " << astro.getCpf() << endl;
-        cout << "Vida: " << astro.getVida() << endl;
-        cout << "Dispo: " << astro.getDisponibilidade();
+    cout << "=-=-=-= OPERAÇÃO LISTAR ASTRONAUTAS MORTOS =-=-=-=\n";
+    if(todosAstronautas.empty()){
+        cout << "Nenhum astronauta cadastrado até o momento.\n";
+        return;
     }
-    
-    /*
-    cpf, nome, voos que participou;
-    */
+    for (auto& astro : todosAstronautas) {
+        if(astro.getVida() == false){
+            cout << "-> Nome: " << astro.getNome() << "\n-> CPF: " << astro.getCpf() << "\n-> Idade: " << astro.getIdade() << endl;
+            cout << "Voos participados:" << endl;
+            for(auto& voo : astro.listarVoos()){
+                cout << "-> Código:" << voo << endl;
+            }
+            cout << "\n";
+        }
+        
+    }
+
 }
 

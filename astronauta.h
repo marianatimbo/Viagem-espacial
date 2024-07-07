@@ -27,6 +27,9 @@ class astronauta {
         int getIdade();
         bool getDisponibilidade();
         bool getVida();
+        list<int> listarVoos(){
+            return voosParticipados;
+        }
 
         void setDisponibilidade(bool dispo);
         void setVida(bool vida_);
