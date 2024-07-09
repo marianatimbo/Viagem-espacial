@@ -1,4 +1,4 @@
-#include "voo.h"
+#include "../class/voo.h"
 
 int voo::getCodigo(){
     return this->codigo;

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "administracao.h"
+#include "../class/administracao.h"
 #include <list>
 
 using namespace std;

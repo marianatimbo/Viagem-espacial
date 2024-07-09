@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include "astronauta.h"
-#include "voo.h"
-#include "administracao.h"
+#include "class/astronauta.h"
+#include "class/voo.h"
+#include "class/administracao.h"
 #include <list>
 
 using namespace std;

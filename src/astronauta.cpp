@@ -1,4 +1,4 @@
-#include "astronauta.h"
+#include "../class/astronauta.h"
 using namespace std;
 
 astronauta::astronauta(string nome_, string cpf_, int idade_, bool dispo, bool vida){

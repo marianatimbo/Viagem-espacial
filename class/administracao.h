@@ -12,7 +12,6 @@ class adm {
     private:
         list<astronauta> todosAstronautas;
         list<voo> todosVoos;
-        list<astronauta> astrosMortos;
 
     public:
         void cadastrarAstronauta();
